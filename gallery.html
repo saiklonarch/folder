@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Object Away</title>
+    <style>
+        #movingObject {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: top 0.3s, left 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            border: none;
+                cursor: pointer;
+            }
+        body.light-mode {
+            background-color: white;
+            color: black;
+        }
+
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
+
+        .light-mode #movingObject {
+            background-color: red;
+        }
+
+        .dark-mode #movingObject {
+            background-color: darkred;
+        }
+
+        .light-mode #rigidObject {
+            background-color: green;
+        }
+
+        .dark-mode #rigidObject {
+            background-color: darkgreen;
+        }
+
+        #modeSwitch {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: gray;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #rigidObject {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Do you love me?</h1>
+    <button id="movingObject">NO</button>
+    <button id="rigidObject">YES</button>
+
+    <script>
+        const movingObject = document.getElementById('movingObject');
+        const modeSwitch = document.createElement('button');
+        modeSwitch.id = 'modeSwitch';
+        modeSwitch.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        document.body.appendChild(modeSwitch);
+
+        modeSwitch.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+            modeSwitch.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        });
+        const rigidObject = document.getElementById('rigidObject');
+
+        movingObject.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - movingObject.clientWidth);
+            const y = Math.random() * (window.innerHeight - movingObject.clientHeight);
+            movingObject.style.left = `${x}px`;
+            movingObject.style.top = `${y}px`;
+        });
+
+        rigidObject.addEventListener('click', () => {
+            alert('I love you too!');
+        });
+    </script>
+</body>
+</html>
